@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar, Clock } from "lucide-react";
+import React from 'react'; 
 const EventDetails = ({ event }) => {
   return (
     <div className="p-10 lg:w-1/3 bg-white">

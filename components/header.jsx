@@ -5,7 +5,7 @@ import { PenBox } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { UserMenu } from "./user-menu";
 import { CheckUser } from "@/lib/checkuser";
-
+import React from 'react'; 
 const Header = async () => {
   await CheckUser();
   return (

@@ -2,6 +2,7 @@ import { getUserMeetings } from "@/actions/meetings";
 import MeetingList from "@/components/meeting-list";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Suspense } from "react";
+import React from 'react'; 
 export const metadata = {
   title: "Your Meeting || Meetly",
   description: "View your upcoming and past meetings.",

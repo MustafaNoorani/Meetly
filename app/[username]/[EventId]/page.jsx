@@ -4,6 +4,7 @@ import BookingForm from "@/components/booking-form";
 import EventDetails from "@/components/event-details";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import React from 'react'; 
 export async function generateMetadata({ params }) {
   const event = await getEventDetails(params.username, params.EventId);
   if (!event) {

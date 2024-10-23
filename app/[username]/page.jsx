@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getUserByUsername } from "@/actions/user";
 import Eventcard from "@/components/event-card";
-
+import React from 'react'; 
 export async function generateMetadata({ params }) {
   const user = await getUserByUsername(params.username);
   if (!user) {

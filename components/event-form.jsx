@@ -3,6 +3,7 @@ import { eventSchema } from "@/app/lib/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "./ui/input";
+import React from 'react'; 
 import {
   Select,
   SelectContent,

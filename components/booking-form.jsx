@@ -11,6 +11,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import useFetch from "@/hooks/use-fetch";
 import { createBooking } from "@/actions/bookings";
+import React from 'react'; 
 const BookingForm = ({ event, availibility }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);

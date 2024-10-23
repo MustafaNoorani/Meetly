@@ -1,7 +1,7 @@
 import { getUserEvents } from "@/actions/events";
 import Eventcard from "@/components/event-card";
 import { Suspense } from "react";
-
+import React from 'react'; 
 export default function EventsPage() {
   return (
     <Suspense fallback={<div>Loading Events...</div>}>

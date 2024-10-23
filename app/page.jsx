@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Testimonialcarousel from "@/components/Testimonial-carousel";
+import React from 'react'; 
 const features = [
   {
     icon: Calendar,
