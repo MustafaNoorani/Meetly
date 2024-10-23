@@ -39,7 +39,7 @@ export async function getUserAvailability() {
     "sunday",
   ].forEach((day) => {
     const dayAvailability = user.availability.days.find(
-      (d) => d.day === day.charAt(0).toUpperCase() + day.slice(1)
+      (d) => d.day === day.charAt(0).toUpperCase() + day.slice(1),
     );
     availabilityData[day] = {
       isAvailable: !!dayAvailability,
@@ -84,7 +84,7 @@ export async function updateAvailability(data) {
         ];
       }
       return [];
-    }
+    },
   );
 
   if (user.availability) {
@@ -148,7 +148,7 @@ export async function getEventAvailability(eventId) {
   for (let date = startDate; date <= endDate; date = addDays(date, 1)) {
     const dayOfWeek = format(date, "EEEE");
     const dayAvailability = availability?.days?.find(
-      (d) => d.day === dayOfWeek
+      (d) => d.day === dayOfWeek,
     );
 
     if (dayAvailability) {
@@ -160,7 +160,7 @@ export async function getEventAvailability(eventId) {
         event.duration,
         bookings,
         dateStr,
-        availability.timegap
+        availability.timegap,
       );
 
       availableDates.push({
@@ -179,14 +179,14 @@ function generateAvailableTimeSlots(
   duration,
   bookings,
   dateStr,
-  timeGap = 0
+  timeGap = 0,
 ) {
   const slots = [];
   let currentTime = parseISO(
-    `${dateStr}T${startTime.toISOString().slice(11, 16)}`
+    `${dateStr}T${startTime.toISOString().slice(11, 16)}`,
   );
   const slotEndTime = parseISO(
-    `${dateStr}T${endTime.toISOString().slice(11, 16)}`
+    `${dateStr}T${endTime.toISOString().slice(11, 16)}`,
   );
 
   // If the date is today, start from the next available slot after the current time
