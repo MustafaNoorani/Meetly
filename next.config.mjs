@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    runtime: 'nodejs', // Ensures the use of Node.js runtime
+    runtime: 'nodejs', // Ensures usage of Node.js runtime instead of Edge
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
-        crypto: require.resolve('crypto-browserify'),
-        stream: require.resolve('stream-browserify'),
+        crypto: 'crypto-browserify',
+        stream: 'stream-browserify',
       };
     }
     return config;
