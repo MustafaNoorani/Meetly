@@ -1,15 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enabling fallback for unsupported edge modules
   experimental: {
-    runtime: 'nodejs',
+    runtime: 'nodejs', // Ensure it's using Node.js runtime instead of the Edge runtime
   },
-  // Custom webpack configuration to handle crypto dependencies
-  webpack: (config, { isServer }) => {
+  webpack: async (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
-        crypto: require.resolve('crypto-browserify'),
-        stream: require.resolve('stream-browserify'),
+        crypto: await import('crypto-browserify'),
+        stream: await import('stream-browserify'),
       };
     }
     return config;
