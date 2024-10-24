@@ -1,10 +1,18 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock, Indent, LinkIcon } from "lucide-react";
+import { ArrowRight, Calendar, Clock, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import Testimonialcarousel from "@/components/Testimonial-carousel";
-import React from 'react'; 
+import LoadingBar from "react-top-loading-bar";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 const features = [
   {
     icon: Calendar,
@@ -39,32 +47,44 @@ const howItWorks = [
   },
 ];
 const Home = () => {
+  const [progress, setProgress] = useState(0);
+  const router = useRouter();
+  const handleNavigation = (url) => {
+    setProgress(40); // Start the loading bar
+    router.push(url); // Navigate to the new page
+    setProgress(100); // Finish the loading bar
+  };
+
   return (
     <main className="container mx-auto px-4 py-16">
+       <LoadingBar
+        color="#000000"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-24">
         <div className="lg:w-1/2">
-          <h1 className="text-7xl font-extrabold pb-6 gradient-title">
-            Simplify your meeting
-          </h1>
-          <p className="text-xl text-gray-600 mb-10">
-            Meetly helps you manage your time effectively. Create events, set
-            your availability, and let others book time with you seamlessly.
-          </p>
-          <Link href="/dashboard">
-            <Button size="lg" className="text-lg">
-              Get Started
+          <h1 className="text-7xl font-extrabold pb-6 gradient-title">Simplify your meeting</h1>
+          <p className="text-xl text-gray-600 mb-10">Meetly helps you manage your time effectively. Create events, set
+            your availability, and let others book time with you seamlessly.</p>
+          {/* <Link href="/dashboard">
+            <Button size="lg" className="text-lg">Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-          </Link>
+          </Link> */}
+          <Button size="lg" className="text-lg" onClick={() => handleNavigation("/dashboard")}>
+          Get Started
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
         </div>
         <div className="lg:w-1/2 flex justify-center">
           <div className="relative w-full max-w-md aspect-square mt-5">
             <Image
-              src="/poster.png"
+              src='/poster.png'
               alt="meetlyposter"
               width={500}
               height={600}
-              style={{ objectFit: "contain" }}
+              style={{ objectFit: 'contain' }}
             />
           </div>
         </div>
@@ -73,25 +93,21 @@ const Home = () => {
         <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
           Key Features
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
-            return (
-              <Card key={index}>
-                <CardHeader>
-                  <feature.icon className="w-12 h-12  text-blue-500 mb-4 mx-auto" />
-                  <CardTitle className="text-center text-blue-600">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-center text-gray-600">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">{features.map((feature, index) => {
+          return (
+            <Card key={index}>
+              <CardHeader>
+                <feature.icon className="w-12 h-12  text-blue-500 mb-4 mx-auto" />
+                <CardTitle className="text-center text-blue-600">{feature.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center text-gray-600">{feature.description}</p>
+              </CardContent>
+            </Card>
+
+          )
+        })}</div>
+
       </div>
       <div className="mb-24">
         <h2 className="text-3xl font-bold text-center mb-12 text-blue-600">
@@ -115,24 +131,22 @@ const Home = () => {
               <p className="text-gray-600">{step.description}</p>
             </div>
           ))}
+
         </div>
       </div>
       <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
-        <h2 className="text-3xl font-bold mb-4">
-          Ready to Simplify Your Meetings?
-        </h2>
-        <p className="text-xl mb-6">
-          Join thousands of professionals who trust Bookitnow to ease their
-          daily meetings
-        </p>
-        <Link href="/dashboard">
-          <Button size="lg" variant="secondary" className="text-blue-400">
-            Start For Free
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </Link>
+        <h2 className="text-3xl font-bold mb-4">Ready to Simplify Your Meetings?</h2>
+        <p className="text-xl mb-6">Join thousands of professionals who trust Bookitnow to ease their daily meetings</p>
+        {/* <Link href="/dashboard">
+          <Button size="lg" variant="secondary" className="text-blue-400">Start For Free<ArrowRight className="ml-2 h-5 w-5" /></Button>
+        </Link> */}
+        <Button size="lg" variant="secondary" className="text-blue-400" onClick={() => handleNavigation("/dashboard")}>
+          Start For Free
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
       </div>
+
     </main>
   );
-};
+}
 export default Home;

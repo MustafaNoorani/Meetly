@@ -6,14 +6,14 @@
   .text-balance {
     text-wrap: balance;
   }
-  .gradient-title {
+  .gradient-title{
     @apply font-extrabold bg-gradient-to-br from-blue-600 to-blue-400 bg-clip-text tracking-tighter text-transparent pb-4 pr-2;
   }
-  .no-scrollbar ::-webkit-scrollbar {
+  .no-scrollbar ::-webkit-scrollbar{
     display: none;
   }
-  .no-scrollbar {
-    -ms-overflow-style: none;
+  .no-scrollbar{
+    -ms-overflow-style:none;
     scrollbar-width: none;
   }
 }
