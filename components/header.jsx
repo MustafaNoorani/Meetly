@@ -1,41 +1,58 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "./ui/button"
-import { PenBox } from "lucide-react"
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs"
-import { UserMenu } from "./user-menu"
-import { CheckUser } from "@/lib/checkuser"
+"use client";
 
-const Header = async () => {
-  await CheckUser();
+
+import Image from "next/image";
+import { Button } from "./ui/button";
+import { PenBox } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { UserMenu } from "./user-menu";
+import LoadingBar from "react-top-loading-bar";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const Header = () => {
+  const [progress, setProgress] = useState(0);
+  const router = useRouter();
+
+  const handleNavigation = (url) => {
+    setProgress(30); // Start the loading bar
+    router.push(url); // Navigate to the new page
+
+    // Delay to simulate load time and finish the bar
+    setTimeout(() => {
+      setProgress(100);
+    }, 500); // Adjust delay for visual effect
+  };
+
   return (
-    <nav className="mx-auto py-2 px-4 flex justify-between items-center shadow-md border-b-2 bg-white">
-      <Link href={"/"} className="flex items-center">
-        <Image src='/logo.png'
-          width="150"
-          height="70"
-          alt="meetlylogo"
-          className="h-16 w-auto ml-3"
-        />
-      </Link>
-      <div className="flex items-center gap-4">
-        <Link href={"/events?create=true"} >
-          <Button className="flex items-center gap-2">
-            <PenBox size={18} />Create Event</Button>
-        </Link>
-        <div> 
-        <SignedOut className="justify-center">
-          <SignInButton fallbackRedirectUrl="/dashboard">
-            <Button variant="outline">Login</Button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <UserMenu/>
-        </SignedIn>
+    <>
+      <LoadingBar
+        color="#000000"
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      <nav className="mx-auto py-2 px-4 flex justify-between items-center shadow-md border-b-2 bg-white">
+        <div onClick={() => handleNavigation("/")} className="flex cursor-pointer">
+          <Image src="/logo.png" width="150" height="70" alt="meetlylogo" className="h-16 w-auto" />
         </div>
-      </div>
-    </nav >
-  )
-}
+        <div className="flex items-center gap-4">
+          <Button className="flex items-center gap-2" onClick={() => handleNavigation("/events?create=true")}>
+            <PenBox size={18} /> Create Event
+          </Button>
+          <div>
+            <SignedOut>
+              <SignInButton fallbackRedirectUrl="/dashboard">
+                <Button variant="outline">Login</Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserMenu />
+            </SignedIn>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
 
-export default Header
+export default Header;

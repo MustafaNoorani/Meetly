@@ -12,13 +12,13 @@ import useFetch from '@/hooks/use-fetch';
 import { updateusername } from '@/actions/user';
 import { BarLoader } from 'react-spinners';
 import { getLatestUpdates } from '@/actions/dashboard';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 const Dashboard = () => {
   const { isLoaded, user } = useUser();
-  const { register, handleSubmit, setValue, formState:{errors} } = useForm({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(UsernameSchema),
   });
-  
+
   const [origin, setOrigin] = useState("");
 
   useEffect(() => {
@@ -27,11 +27,11 @@ const Dashboard = () => {
       setOrigin(window.location.origin); // Set the origin for later use
     }
   }, [isLoaded, user, setValue]);
-  const {loading,error,data,fn:fnUpdateusername} = useFetch(updateusername);
+  const { loading, error, data, fn: fnUpdateusername } = useFetch(updateusername);
   const onSubmit = async (data) => {
-      await fnUpdateusername(data.username);
+    await fnUpdateusername(data.username);
   };
-  const {loading:loadingUpdates,data:upcomingMeetings,fn:fnUpdates} = useFetch(getLatestUpdates);
+  const { loading: loadingUpdates, data: upcomingMeetings, fn: fnUpdates } = useFetch(getLatestUpdates);
   useEffect(() => {
     (async () => await fnUpdates())();
   }, []);
@@ -39,7 +39,7 @@ const Dashboard = () => {
   if (!isLoaded) {
     return <div>Loading...</div>; // Show loading state
   }
- 
+
 
   return (
     <div className="space-y-8">
@@ -52,41 +52,53 @@ const Dashboard = () => {
         <CardContent>
           {!loadingUpdates ? (
             <div>
-            {upcomingMeetings && upcomingMeetings.length > 0 ?  (
-              <ul>
-                {upcomingMeetings.map((meeting)=>{
-                  return <li key={meeting.id}>
-                    - {meeting.event.title} on {" "}
-                    {format(new Date(meeting.startTime), "MMM d, yyyy h:mm a")} {" "}
-                    with {meeting.name}
-                  </li>
-                })}
+              {upcomingMeetings && upcomingMeetings.length > 0 ? (
+                <ul>
+                  {upcomingMeetings.map((meeting) => {
+                    return <li key={meeting.id}>
+                      - {meeting.event.title} on {" "}
+                      {format(new Date(meeting.startTime), "MMM d, yyyy h:mm a")} {" "}
+                      with {meeting.name}
+                    </li>
+                  })}
                 </ul>
-            ) : (<p>No Upcoming Meeting</p>)
-          }
-          </div>) : (<p>Loading Updates...</p>)}
+              ) : (<p>No Upcoming Meeting</p>)
+              }
+            </div>) : (<p>Loading Updates...</p>)}
         </CardContent>
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle>
-            Your Unique Link
-          </CardTitle>
+          <CardTitle>Your Unique Link</CardTitle>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span>{origin}/</span> {/* Use state variable here */}
-                <Input {...register("username")} placeholder="username" />
-              
+              {/* Combined Row: Origin and Input Field */}
+              <div className="flex flex-col md:flex-row md:items-center md:gap-2">
+                <span className="whitespace-nowrap">{origin}/</span> {/* Use state variable here */}
+                <Input
+                  {...register("username", { required: "Username is required" })}
+                  placeholder="username"
+                  className="flex-grow min-w-0"
+                />
               </div>
-              {errors.username && (<p className='text-red-500 text-sm mt-1'>{errors.username.message}</p>)}
-              {error && (<p className='text-red-500 text-sm mt-1'>{error.message}</p>)}
-              {loading && <BarLoader className='mb-4' width={"100%"}/>}
+
+              {/* Error Handling */}
+              {errors.username && (
+                <p className='text-red-500 text-sm mt-1'>{errors.username.message}</p>
+              )}
+              {error && (
+                <p className='text-red-500 text-sm mt-1'>{error.message}</p>
+              )}
+              {loading && <BarLoader className='mb-4' width={"100%"} />}
+
+              {/* Submit Button */}
               <Button type="submit">Update Username</Button>
             </form>
           </CardContent>
         </CardHeader>
       </Card>
+
+
     </div>
   );
 }

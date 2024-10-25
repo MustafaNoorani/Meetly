@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, LinkIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -49,15 +48,20 @@ const howItWorks = [
 const Home = () => {
   const [progress, setProgress] = useState(0);
   const router = useRouter();
-  const handleNavigation = (url) => {
-    setProgress(40); // Start the loading bar
-    router.push(url); // Navigate to the new page
-    setProgress(100); // Finish the loading bar
-  };
 
+  const handleNavigation = async (url) => {
+    setProgress(30); // Start the loading bar at 30%
+
+    router.push(url); // Navigate to the new page
+
+    // Delay the completion of the loading bar for visual feedback
+    setTimeout(() => {
+      setProgress(100);
+    }, 500); // Adjust delay as needed
+  };
   return (
     <main className="container mx-auto px-4 py-16">
-       <LoadingBar
+      <LoadingBar
         color="#000000"
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
@@ -73,9 +77,9 @@ const Home = () => {
             </Button>
           </Link> */}
           <Button size="lg" className="text-lg" onClick={() => handleNavigation("/dashboard")}>
-          Get Started
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
+            Get Started
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
         <div className="lg:w-1/2 flex justify-center">
           <div className="relative w-full max-w-md aspect-square mt-5">
