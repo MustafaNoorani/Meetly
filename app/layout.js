@@ -4,6 +4,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import CreateEventDrawer from "@/components/create-events";
 import Footer from "@/components/footer";
 import HeaderWrapper from "@/components/headerwrapper";
+
+import React, { Suspense } from "react";
 export const metadata = {
   title: "Meetly",
   description: "Schedule your meeting",
@@ -26,7 +28,10 @@ export default function RootLayout({ children }) {
           <HeaderWrapper/>
           <div className="flex flex-col h-screen">
           <main className="flex-grow bg-gradient-to-b from-blue-50 to-white pb-16">
-            {children}
+          <Suspense fallback={<div>Loading...</div>}>
+                        {children}
+                    </Suspense>
+            
           </main>
           {/* <footer className="hidden md:block bg-blue-200 p-4">
             <div className="container mx-auto px-4 text-center text-gray-800">

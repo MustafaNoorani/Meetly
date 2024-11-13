@@ -2,9 +2,8 @@
 
 import React, { useState, Suspense } from "react";
 import { BarChart, Calendar, Users, Clock } from "lucide-react";
-import { usePathname } from "next/navigation";
 import LoadingBar from "react-top-loading-bar";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 // Define the navigation items with labels and icons
 const navItems = [
