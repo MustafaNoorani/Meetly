@@ -1,10 +1,10 @@
 "use server";
 import { CheckUser } from "@/lib/checkuser";
-import Header from "./Header";
+import Header from "./header";
 
 const HeaderWrapper = async () => {
   await CheckUser(); // Server-side call 
-  return <Header />;
+  return <Header />
 };
 
 export default HeaderWrapper;
