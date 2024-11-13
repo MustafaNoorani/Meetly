@@ -1,4 +1,4 @@
-
+"use server";
 import { CheckUser } from "@/lib/checkuser";
 import Header from "./Header";
 
