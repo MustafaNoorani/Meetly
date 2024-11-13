@@ -4,7 +4,7 @@ import { auth,clerkClient } from "@clerk/nextjs/server";
 import {db} from '@/lib/prisma';
 import { google } from "googleapis";
 export async function getUserMeetings(type = "upcoming") {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
         throw new Error("Unauthorized");
     }
@@ -46,7 +46,8 @@ export async function getUserMeetings(type = "upcoming") {
 }
 
 export async function deleteMeeting(meetingId) {
-    const {userId} = auth();
+    const { userId } = await auth();
+    const client = await clerkClient();
     if (!userId){
         throw new Error("Unauthorized");
     }
@@ -63,12 +64,18 @@ export async function deleteMeeting(meetingId) {
     if(!event || event.userId !== user.id){
         throw new Error("Event not found or unautgorized");
     }
-    const { data } = await clerkClient.users.getUserOauthAccessToken(
+    // const { data } = await clerkClient.users.getUserOauthAccessToken(
+    //     userId,
+    //     "oauth_google"
+    // );
+    
+    // const token = data[0]?.token;
+    const data = await client.users.getUserOauthAccessToken(
         userId,
         "oauth_google"
     );
-    
-    const token = data[0]?.token;
+    const oauthToken = data.data[0]; 
+    const token = oauthToken.token;
 
     if (!token) {
         throw new Error("Event creator has not connected their Google Calendar");

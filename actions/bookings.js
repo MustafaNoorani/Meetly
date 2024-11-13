@@ -4,6 +4,8 @@ import { clerkClient } from "@clerk/nextjs/server";
 import { google } from "googleapis";
 
 export async function createBooking(bookingData) {
+    const client = await clerkClient();
+    
     try {
         // Fetch event details
         const event = await db.event.findUnique({
@@ -13,15 +15,13 @@ export async function createBooking(bookingData) {
         if (!event) {
             throw new Error("Event not found");
         }
-
         // Fetch user's Google OAuth token from Clerk
-        const { data } = await clerkClient.users.getUserOauthAccessToken(
+        const data = await client.users.getUserOauthAccessToken(
             event.user.ClerkUserid,
             "oauth_google"
         );
-        
-        const token = data[0]?.token;
-
+        const oauthToken = data.data[0]; 
+        const token = oauthToken.token;
         if (!token) {
             throw new Error("Event creator has not connected their Google Calendar");
         }

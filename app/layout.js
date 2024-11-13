@@ -1,9 +1,9 @@
-import Header from "@/components/header";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import CreateEventDrawer from "@/components/create-events";
 import Footer from "@/components/footer";
+import HeaderWrapper from "@/components/headerwrapper";
 export const metadata = {
   title: "Meetly",
   description: "Schedule your meeting",
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           />
         </head>
         <body className={inter.className}>
-          <Header />
+          <HeaderWrapper/>
           <div className="flex flex-col h-screen">
           <main className="flex-grow bg-gradient-to-b from-blue-50 to-white pb-16">
             {children}

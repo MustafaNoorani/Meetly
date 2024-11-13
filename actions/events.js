@@ -5,12 +5,12 @@ import {db} from '@/lib/prisma';
 import { eventSchema } from "@/app/lib/validators";
 
 export async function CreateEvent(data) {
-    const {userId} = auth();
+    const {userId} = await auth();
     if (!userId){
         throw new Error("Unauthorized");
     }
     const validateData = eventSchema.parse(data);
-    const user = await db.user.findUnique({
+    const user = await db.User.findUnique({
         where: {ClerkUserid:userId},
     });
     if (!user){
@@ -28,11 +28,11 @@ export async function CreateEvent(data) {
 }
 
 export async function getUserEvents() {
-    const {userId} = auth();
+    const {userId} = await auth();
     if (!userId){
         throw new Error("Unauthorized");
     }
-    const user = await db.user.findUnique({
+    const user = await db.User.findUnique({
         where: {ClerkUserid:userId},
     });
     if (!user){
@@ -52,11 +52,11 @@ export async function getUserEvents() {
     
 }
 export async function deleteEvent(eventId) {
-    const {userId} = auth();
+    const {userId} = await auth();
     if (!userId){
         throw new Error("Unauthorized");
     }
-    const user = await db.user.findUnique({
+    const user = await db.User.findUnique({
         where: {ClerkUserid:userId},
     });
     if (!user){

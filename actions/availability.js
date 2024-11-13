@@ -11,7 +11,7 @@ import {
   addMinutes,
 } from "date-fns";
 export async function getUserAvailability() {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     throw new Error("Unauthorized");
   }
@@ -55,7 +55,7 @@ export async function getUserAvailability() {
 }
 
 export async function updateAvailability(data) {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (!userId) {
     throw new Error("Unauthorized");

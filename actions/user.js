@@ -4,28 +4,29 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import {db} from '@/lib/prisma'
 
 export async function updateusername(username) {
-    const {userId} = auth();
+    const {userId} = await auth();
+    const client = await clerkClient();
     if (!userId){
         throw new Error("Unauthorized");
     }
-    const existingUsername = await db.user.findUnique({
+    const existingUsername = await db.User.findUnique({
         where: {username},
     });
     if (existingUsername && existingUsername.id !== userId){
         throw new Error ("Username is already taken");
     }
-    await db.user.update({
+    await db.User.update({
         where: {ClerkUserid: userId},
         data:{username},
     });
-    await clerkClient.users.updateUser(userId,{
+    client.users.updateUser(userId,{
         username,
     });
     return {success:true}
     
 }
 export async function getUserByUsername(username) {
-    const user = await db.user.findUnique({
+    const user = await db.User.findUnique({
         where: {username},
         select:{
             id:true,

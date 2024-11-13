@@ -1,3 +1,4 @@
+import { RedirectToSignIn } from "@clerk/nextjs";
 import {  clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
@@ -6,12 +7,15 @@ const isProtectedRoute = createRouteMatcher([
   "/availability(.*)",
 
 ])
+// export default clerkMiddleware((auth,req)=>{
+//   if(!auth().userId && isProtectedRoute(req)){
+//     return auth().redirectToSignIn();
+//   }
+// });
 
-export default clerkMiddleware((auth,req)=>{
-  if(!auth().userId && isProtectedRoute(req)){
-    return auth().redirectToSignIn();
-  }
-});
+export default clerkMiddleware(async (auth, req) => {
+  if (isProtectedRoute(req)) await auth.protect()
+}); // This middleware is used to check if the user is authenticated
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
@@ -19,4 +23,4 @@ export const config = {
     // Always run for API routes
     '/(api|trpc)(.*)',
   ],
-};
+}
