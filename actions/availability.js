@@ -153,7 +153,6 @@ export async function getEventAvailability(eventId) {
 
     if (dayAvailability) {
       const dateStr = format(date, "yyyy-MM-dd");
-
       const slots = generateAvailableTimeSlots(
         dayAvailability.startTime,
         dayAvailability.endTime,
@@ -179,7 +178,7 @@ function generateAvailableTimeSlots(
   duration,
   bookings,
   dateStr,
-  timeGap = 0
+  timeGap = 0 
 ) {
   const slots = [];
   let currentTime = parseISO(
