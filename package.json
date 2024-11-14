@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.3.1",
+    "@clerk/nextjs": "^6.2.1",
     "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.21.0",
     "@radix-ui/react-avatar": "^1.1.1",
@@ -39,7 +39,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "eslint": "^9.14.0",
+    "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.15",
     "postcss": "^8",
     "prisma": "^5.21.0",
