@@ -40,7 +40,9 @@ export default function RootLayout({ children }) {
           </footer> */}
           <Footer/>
           </div>
-          <CreateEventDrawer />
+          <Suspense>
+            <CreateEventDrawer />
+          </Suspense>
         </body>
       </html>
     </ClerkProvider>
