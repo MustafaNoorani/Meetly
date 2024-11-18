@@ -62,7 +62,7 @@ const Home = () => {
   return (
     <main className="container mx-auto px-4 py-16">
       <LoadingBar
-        color="#000000"
+        color="#3B82F6"
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
@@ -76,7 +76,7 @@ const Home = () => {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link> */}
-          <Button size="lg" className="text-lg" onClick={() => handleNavigation("/dashboard")}>
+          <Button size="lg" className="text-lg hover:text-black hover:bg-transparent" onClick={() => handleNavigation("/dashboard")}>
             Get Started
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
@@ -144,7 +144,7 @@ const Home = () => {
         {/* <Link href="/dashboard">
           <Button size="lg" variant="secondary" className="text-blue-400">Start For Free<ArrowRight className="ml-2 h-5 w-5" /></Button>
         </Link> */}
-        <Button size="lg" variant="secondary" className="text-blue-400" onClick={() => handleNavigation("/dashboard")}>
+        <Button size="lg" variant="secondary" className="text-blue-600 text-lg hover:font-semibold hover:text-white hover:bg-blue-500" onClick={() => handleNavigation("/dashboard")}>
           Start For Free
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>

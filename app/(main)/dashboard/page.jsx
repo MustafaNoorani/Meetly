@@ -89,10 +89,10 @@ const Dashboard = () => {
               {error && (
                 <p className='text-red-500 text-sm mt-1'>{error.message}</p>
               )}
-              {loading && <BarLoader className='mb-4' width={"100%"} />}
+              {loading && <BarLoader className='mb-4' width={"100%"} color='#3B82F6' />}
 
               {/* Submit Button */}
-              <Button type="submit">Update Username</Button>
+              <Button type="submit" className="border-2 p-4 border-x-white font-medium border-spacing-3 bg-transparent text-gray-800 hover:text-white">Update Username</Button>
             </form>
           </CardContent>
         </CardHeader>

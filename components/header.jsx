@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <>
       <LoadingBar
-        color="#000000"
+        color="#3B82F6"
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
@@ -36,7 +36,7 @@ const Header = () => {
           <Image src="/logo.png" width="150" height="70" alt="meetlylogo" className="h-16 w-auto" />
         </div>
         <div className="flex items-center gap-4">
-          <Button className="flex items-center gap-2" onClick={() => handleNavigation("/events?create=true")}>
+          <Button className="flex items-center gap-2 text-lg hover:text-black hover:bg-white hover:rounded-md hover:shadow-md" onClick={() => handleNavigation("/events?create=true")}>
             <PenBox size={18} /> Create Event
           </Button>
           <div>

@@ -60,7 +60,7 @@ const Eventcard = ({ event, username, isPublic = false }) => {
       </CardContent>
       {!isPublic && (
         <CardFooter className="flex gap-2">
-        <Button variant="outline" className="flex items-center" onClick={handleCopy}>
+        <Button className="border-2 p-4 border-x-white font-medium border-spacing-3 bg-transparent text-gray-800 hover:text-white" onClick={handleCopy}>
           <Link className='mr-2 h-4 w-4'/>{" "} {isCopied ? "Copied!" : "Copy Link"}</Button>
         <Button variant="destructive" onClick={handleDelete} disabled={loading}>
           <Trash2 className='mr-2 h-4 w-4'/>

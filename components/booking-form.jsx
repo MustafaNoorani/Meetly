@@ -115,7 +115,7 @@ const BookingForm = ({event,availibility}) => {
             <div>
                 <Textarea {...register("additionalInfo")} placeholder="Additional Information"/>
             </div>
-            <Button type="submit" disabled={loading} className="w-full">{loading? "Scheduling..." :"Schedule Event"}</Button>
+            <Button type="submit" disabled={loading} className="mt-5 border-2 p-4 border-x-white font-medium border-spacing-3 bg-transparent text-gray-800 hover:text-white">{loading? "Scheduling..." :"Schedule Event"}</Button>
             </form>}
     </div>
   )
